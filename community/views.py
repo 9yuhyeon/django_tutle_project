@@ -72,4 +72,12 @@ def create_comment(request, article_id):
 
 
 def delete_comment(request, article_id, comment_id):
-    pass
+    if request.method == 'POST':
+        comment = Comment.objects.get(id=comment_id)
+        
+        if request.user != comment.user:
+            return HttpResponse('본인이 작성한 댓글만 삭제 가능합니다.')
+        
+        comment.delete()
+        
+        return redirect('community:article_detail', article_id)

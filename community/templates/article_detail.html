@@ -22,5 +22,21 @@
             <button type='submit'>게시글 삭제</button>
         </form>
     {% endif %}
+    <h2>댓글</h2>    
+    {% for comment in article.comment_set.all %}
+        <div>
+            <div>작성자 : {{ comment.user }}</div>
+            <div>댓글 내용 : {{ comment.content }}</div>
+        </div>
+        <br>
+    {% endfor %}
+
+<div>
+    <form action="{% url 'community:create_comment' article.id %}" method='POST'>
+        {% csrf_token %}
+        <input type="text" name='content' id='content' placeholder='댓글을 입력해주세요'>
+        <button type='submit'>작성</button>
+    </form>
+</div>
 </body>
 </html>

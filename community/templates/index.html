@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인덱스 페이지</title>
+</head>
+<body>
+<h1>모든 게시글들</h1>
+<a href="{% url 'community:create_article' %}">📝 게시글 작성하기</a>
+
+{% for article in articles %}
+<div> 
+    <a href="{% url 'community:article_detail' article.id %}">
+        <h3>{{ article.title }}</h3>
+    </a>
+</div>
+{% endfor %}
+</body>
+</html>

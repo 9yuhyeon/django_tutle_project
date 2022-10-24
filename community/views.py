@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from community.models import Article
+from community.models import Article, Comment
 from django.shortcuts import get_object_or_404
 # Create your views here.
 def index(request):
@@ -61,3 +61,15 @@ def delete_article(request,article_id):
         article.delete()
         
         return redirect('community:index')
+
+
+def create_comment(request, article_id):
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        user = request.user
+        Comment.objects.create(content=content, user=user, article_id=article_id)
+        return redirect('community:article_detail', article_id)
+
+
+def delete_comment(request, article_id, comment_id):
+    pass

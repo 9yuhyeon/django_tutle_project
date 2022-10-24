@@ -27,6 +27,12 @@
         <div>
             <div>작성자 : {{ comment.user }}</div>
             <div>댓글 내용 : {{ comment.content }}</div>
+            {% if request.user == comment.user %}
+                <form action="{% url 'community:delete_comment' article.id comment.id %}"method="POST">
+                    {% csrf_token %}
+                    <button type='submit'>댓글삭제</button>
+                </form>
+            {% endif %}
         </div>
         <br>
     {% endfor %}
